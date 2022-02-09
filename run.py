@@ -7,7 +7,7 @@ class Board:
     
 
 
-    def __init__(seld,):
+    def __init__(self,name,):
 
     def print():
 
