@@ -1,2 +1,116 @@
 #https://p3-battleships.herokuapp.com
 
+from pprint import pprint 
+import random 
+ 
+ 
+class Board: 
+     
+ 
+    def __init__(self,name,size,num_ships,player_type): 
+         
+        self.name=name 
+        self.player_type=player_type 
+        self.num_ships=num_ships 
+        self.size=size 
+        self.board=[["." for x in range(size)] for y in range(size)] 
+        self.gusses=[] 
+        self.ships=[] 
+         
+         
+    def print(self): 
+        for row in self.board:
+            print(" ".join(row))
+         
+         
+    def guess(self,x,y):
+        self.gusses.append((x,y))
+        self.board[x][y]='X'
+        if (x,y) in self.ships:
+            board[x][y]='*'
+            return 'Hit'
+        else:
+            return 'Miss'
+    
+ 
+    def add_ship(self,ship_coordination): 
+        self.ships.append(ship_coordination) 
+ 
+     
+def random_point(size): 
+      
+    return random.randint(0, size-1) 
+
+
+def valid_coordination(row,col,borad): 
+    try:
+        if (row in range(0,5)) and (col in range(0,5)) :
+            raise ValueError(
+                f"the position you entered is out of range!"
+            )
+        elif ([row,col]  in board.gusses):
+            raise ValueError(
+                f"You entered this location before"
+            )
+    except:
+        print(f"Invalid data: {e}, please try again.\n")
+        return False
+
+    return True
+ 
+
+
+def populate_board(board):
+    for a in board.ships[]
+    board.board[row][col]=board.ships[row][col]
+
+
+
+def make_guess(board): 
+
+    if board.type=='human_player':
+        while True:
+            h_row=input('please enter the row\n')
+            h_col=input ('please enter the column\n')
+            
+            if valid_coordination(h_row,h_col,board):
+                return board
+                break
+    else :
+        while True:
+            c_row=random_point(board.size)
+            c_col=random_point(board.size)
+            if valid_coordination(c_row, c_col, borad):
+                board.ships=[c_row,c_col]
+                return board
+                break
+ 
+ 
+def play_game(c_board,h_board): 
+    print('welcom to the battleship game') 
+    
+    print(board.name + "'s board : ")
+    
+
+ 
+def new_game():
+    size=5 
+    ships_num=4 
+    human_player='human_player' 
+    computer_player='computer' 
+     
+    name=input ('please enter your name : \n') 
+    player_one_board=Board(name, size , ships_num, human_player) 
+    player_computer_board =Board('computer', size, ships_num, computer_player) 
+     
+    
+    for _ in range(ships_num):
+        populate_board(player_one_board)
+        populate_board(player_computer_board)
+    
+    play_game(player_computer_board, player_one_board)
+
+
+
+
+new_game()
