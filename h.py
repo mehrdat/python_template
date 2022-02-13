@@ -66,14 +66,13 @@ def valid_coordination(row,col,borad):
 
 
 def populate_board(board):
-    for a in board.ships[]
-    board.board[row][col]=board.ships[row][col]
+    board.add_ship()=random_point(board.size)
 
 
 
 def make_guess(board): 
 
-    if board.type=='human_player':
+    if board.type=='player':
         while True:
             h_row=input('please enter the row\n')
             h_col=input ('please enter the column\n')
@@ -86,7 +85,7 @@ def make_guess(board):
             c_row=random_point(board.size)
             c_col=random_point(board.size)
             if valid_coordination(c_row, c_col, borad):
-                board.ships=[c_row,c_col]
+                board.add_ship(c_row,c_col)
                 return board
                 break
  
