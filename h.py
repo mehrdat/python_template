@@ -69,7 +69,7 @@ def populate_board(board):
     while True:
             c_row=random_point(5)
             c_col=random_point(5)
-            if valid_coordination(c_row, c_col, board):
+            if (c_row,c_col ) not in board.ships:
                 board.add_ship(c_row,c_col)
                 return board  # i have to make sure that whhich one i have to put here the class or coordination. 
                 break
