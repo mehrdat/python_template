@@ -1,66 +1,128 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
-from pprint import pprint
+#https://p3-battleships.herokuapp.com
 
-class Board:
-    """class for players"""
+from pprint import pprint 
+import random 
+ 
+ 
+class Board: 
+     
+ 
+    def __init__(self,name,size,num_ships,player_type): 
+         
+        self.name=name 
+        self.player_type=player_type 
+        self.num_ships=num_ships 
+        self.size=size 
+        self.board=[["." for x in range(size)] for y in range(size)] 
+        self.gusses=[] 
+        self.ships=[] 
+         
+         
+    def print(self): 
+        for row in self.board:
+            print("  ".join(row))
+         
+         
+    def guess(self,x,y):
+        self.gusses.append((x,y))
+        self.board[x][y]='X'
+        if (x,y) in self.ships:
+            board[x][y]='*'
+            return 'Hit'
+        else:
+            return 'Miss'
+    
+ 
+    def add_ship(self , x , y , type="computer"): 
+        if len(self.ships)>= self.num_ships:
+            print('Error! You cannot add any more ships')
 
-    def __init__(self, name,size,ships_number,player_type):
-        self.name = name
-        self.ships_number=ships_number
-        self.size = size
-        self.type=type
-        self.board=[['.' for x in range(size)] for y in range(size)]
-        self.ships=[]
-        self.gusses=[]
-        self.type = player_type
+        else:
+            self.ships.append((x,y))
+            if self.player_type=='player':
+                self.board[x][y]="@"
+     
+def random_point(size): 
+      
+    return random.randint(0, size-1) 
 
-    def print(self):
-        """ prit the rsults"""
-        pprint(self.board)
 
-    def guess():
-        pass
-    def add_ship():
-        pass
+def valid_coordination(row,col,board): 
+    try:
+        if (row in range(5)) or (col in range(5)) :
+            raise ValueError(
+                f"the position you entered is out of range!"
+            )
+        elif (x,y) in board.ships:
+            raise ValueError(
+                f"You entered this location before"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+        return True
+
+    return False
+ 
+
+
+def populate_board(board):
+    while True:
+            c_row=random_point(5)
+            c_col=random_point(5)
+            if valid_coordination(c_row, c_col, board):
+                board.add_ship(c_row,c_col)
+                return board  # i have to make sure that whhich one i have to put here the class or coordination. 
+                break
+
+
+
+def make_guess(board):
+       
+    if board.type=='player':
+        while True:
+            h_row=input('please enter the row\n')
+            h_col=input ('please enter the column\n')
+            if valid_coordination(h_row,h_col,board):
+                return board # i have to make sure that whhich one i have to put here the class or coordination. 
+                break
+    else :
+        while True:
+            c_row=random_point(5)
+            c_col=random_point(5)
+            if valid_coordination(c_row, c_col, borad):
+                board.add_ship(c_row,c_col)
+                return board  # i have to make sure that whhich one i have to put here the class or coordination. 
+                break
+ 
+ 
+def play_game(c_board,h_board): 
+    print('welcom to the battleship game')
+    print('*'*15)
+    print(c_board.name + "'s board : ")
+    c_board.print()
+    print('*'*15)
+    print(h_board.name + "'s board : ")
+    h_board.print()
 
     
-def random_print(size):
-    pass
 
-def valid_coordination():
-    pass
-
-def populate_board():
-    pass
-def make_guess():
-    pass
-
-def play_game():
-    pass
-
+ 
 def new_game():
-    """game starts here""" 
-
-    board_size = 5
-    ships_number = 4
-
-
-    print('-----------------------------------------')
-    print('Welcome to Battleship game')
-    print(f"Board size is {board_size} number of ships are {ships_number}")
-    print('Top left corner is row: 0  and col: 0')
-    print('-----------------------------------------')
-
-#creating the class
-    name=input('Please enter your name : ')
-    player_board=Board(name, board_size, ships_number,'player')
-    #computer_board=Board('Computer', ships_number)
-
-   # print(f"{player_board.name}'s board : ")
+    size=5 
+    ships_num=4 
+    human_player='human_player' 
+    computer_player='computer' 
+     
+    name=input ('please enter your name : \n') 
+    player_one_board=Board(name, size , ships_num, human_player) 
+    player_computer_board =Board('computer', size, ships_num, computer_player) 
+     
     
-    player_board.print()
+    for _ in range(ships_num):
+        populate_board(player_one_board)
+        populate_board(player_computer_board)
+    
+    play_game(player_computer_board, player_one_board)
 
 
 

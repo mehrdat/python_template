@@ -20,7 +20,7 @@ class Board:
          
     def print(self): 
         for row in self.board:
-            print(" ".join(row))
+            print("  ".join(row))
          
          
     def guess(self,x,y):
@@ -38,7 +38,7 @@ class Board:
             print('Error! You cannot add any more ships')
 
         else:
-            ships.append((x,y))
+            self.ships.append((x,y))
             if self.player_type=='player':
                 self.board[x][y]="@"
      
@@ -47,21 +47,21 @@ def random_point(size):
     return random.randint(0, size-1) 
 
 
-def valid_coordination(row,col,borad): 
+def valid_coordination(row,col,board): 
     try:
-        if (row in range(0,5)) and (col in range(0,5)) :
+        if (row in range(5)) or (col in range(5)) :
             raise ValueError(
                 f"the position you entered is out of range!"
             )
-        elif  board.guess()=='Miss':
+        elif (x,y) in board.ships:
             raise ValueError(
                 f"You entered this location before"
             )
-    except:
+    except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
-        return False
+        return True
 
-    return True
+    return False
  
 
 
@@ -69,7 +69,7 @@ def populate_board(board):
     while True:
             c_row=random_point(5)
             c_col=random_point(5)
-            if valid_coordination(c_row, c_col, borad):
+            if valid_coordination(c_row, c_col, board):
                 board.add_ship(c_row,c_col)
                 return board  # i have to make sure that whhich one i have to put here the class or coordination. 
                 break
@@ -98,10 +98,10 @@ def make_guess(board):
 def play_game(c_board,h_board): 
     print('welcom to the battleship game')
     print('*'*15)
-    print(board.name + "'s board : ")
+    print(c_board.name + "'s board : ")
     c_board.print()
     print('*'*15)
-    print(board.name + "'s board : ")
+    print(h_board.name + "'s board : ")
     h_board.print()
 
     
