@@ -53,7 +53,7 @@ def valid_coordination(row,col,borad):
             raise ValueError(
                 f"the position you entered is out of range!"
             )
-        elif ([row,col]  in board.gusses):
+        elif  board.guess()=='Miss':
             raise ValueError(
                 f"You entered this location before"
             )
@@ -66,34 +66,44 @@ def valid_coordination(row,col,borad):
 
 
 def populate_board(board):
-    board.add_ship()=random_point(board.size)
+    while True:
+            c_row=random_point(5)
+            c_col=random_point(5)
+            if valid_coordination(c_row, c_col, borad):
+                board.add_ship(c_row,c_col)
+                return board  # i have to make sure that whhich one i have to put here the class or coordination. 
+                break
 
 
 
-def make_guess(board): 
-
+def make_guess(board):
+       
     if board.type=='player':
         while True:
             h_row=input('please enter the row\n')
             h_col=input ('please enter the column\n')
-            
             if valid_coordination(h_row,h_col,board):
-                return board
+                return board # i have to make sure that whhich one i have to put here the class or coordination. 
                 break
     else :
         while True:
-            c_row=random_point(board.size)
-            c_col=random_point(board.size)
+            c_row=random_point(5)
+            c_col=random_point(5)
             if valid_coordination(c_row, c_col, borad):
                 board.add_ship(c_row,c_col)
-                return board
+                return board  # i have to make sure that whhich one i have to put here the class or coordination. 
                 break
  
  
 def play_game(c_board,h_board): 
-    print('welcom to the battleship game') 
-    
+    print('welcom to the battleship game')
+    print('*'*15)
     print(board.name + "'s board : ")
+    c_board.print()
+    print('*'*15)
+    print(board.name + "'s board : ")
+    h_board.print()
+
     
 
  
