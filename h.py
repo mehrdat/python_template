@@ -33,9 +33,14 @@ class Board:
             return 'Miss'
     
  
-    def add_ship(self,ship_coordination): 
-        self.ships.append(ship_coordination) 
- 
+    def add_ship(self , x , y , type="computer"): 
+        if len(self.ships)>= self.num_ships:
+            print('Error! You cannot add any more ships')
+
+        else:
+            ships.append((x,y))
+            if self.player_type=='player':
+                self.board[x][y]="@"
      
 def random_point(size): 
       
