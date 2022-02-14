@@ -39,8 +39,8 @@ class Board:
 
         else:
             self.ships.append((x,y))
-            if self.player_type=='player':
-                self.board[x][y]="@"
+            if self.player_type == 'player':
+                self.board[x][y] = "@"
      
 def random_point(size): 
       
@@ -70,7 +70,9 @@ def populate_board(board):
             c_row=random_point(5)
             c_col=random_point(5)
             if (c_row,c_col ) not in board.ships:
-                board.add_ship(c_row,c_col)
+                if board.player_type=='player':
+                    board.board[c_row][c_col]='@'
+                    board.add_ship(c_row,c_col)
                 return board  # i have to make sure that whhich one i have to put here the class or coordination. 
                 break
 
@@ -96,7 +98,7 @@ def make_guess(board):
  
  
 def play_game(c_board,h_board): 
-    print('welcom to the battleship game')
+    
     print('*'*15)
     print(c_board.name + "'s board : ")
     c_board.print()
@@ -110,10 +112,14 @@ def play_game(c_board,h_board):
 def new_game():
     size=5 
     ships_num=4 
-    human_player='human_player' 
+    human_player='player' 
     computer_player='computer' 
-     
-    name=input ('please enter your name : \n') 
+
+    print("*"*30)
+    print('welcom to the battleship game')
+    print("*"*30)
+    name=input ('please enter your name : \n')
+    print(' '*40)
     player_one_board=Board(name, size , ships_num, human_player) 
     player_computer_board =Board('computer', size, ships_num, computer_player) 
      
