@@ -102,37 +102,43 @@ def play_game(c_board,h_board):
     
     h_hit=0
     c_hit=0
-    print('*'*15)
-    print(c_board.name + "'s board : ")
-    c_board.print()
-    print('*'*15)
-    print(h_board.name + "'s board : ")
-    h_board.print()
-
-    h_row,h_col=make_guess(h_board)
-    c_row,c_col=make_guess(c_board)
-    print(' '*35)
-    print('*'*35)
-    print(f'player guessed {(h_row,h_col)}')
+    
+    while True:
+        print('*'*15)
+        print(c_board.name + "'s board : ")
+        c_board.print()
+        print('*'*15)
+        print(h_board.name + "'s board : ")
+        h_board.print()
+        h_row,h_col=make_guess(h_board)
+        c_row,c_col=make_guess(c_board)
+        print(' '*35)
+        print('*'*35)
+        print(f'player guessed {(h_row,h_col)}')
+    
     
 
-    if h_board.guess(h_row, h_col)=='Hit':
-        print(f'you have got a Hit !')
-        h_hit += 1
-    else:
-        print('You missed this time !')
+        if h_board.guess(h_row, h_col)=='Hit':
+            print(f'you have got a Hit !')
+            h_hit += 1
+        else:
+            print('You missed this time !')
+            print('*'*35)
+        print(f'computer guessed {(c_row,c_col)}')
+        if c_board.guess(c_row, c_col)=='Hit':
+            print(f'computer has got a Hit !')
+            c_hit += 1
+        else:
+            print('computer missed this time !')
+        print(' '*35)
+        print('after this round the scores are :')
+        print(f'{h_board.name} : {h_hit} --- computer: {c_hit} ' )
+        print(' '*35)
         print('*'*35)
-    print(f'computer guessed {(c_row,c_col)}')
-    if c_board.guess(c_row, c_col)=='Hit':
-        print(f'computer has got a Hit !')
-        c_hit += 1
-    else:
-        print('computer missed this time !')
-    print(' '*35)
-    print('after this round the scores are :')
-    print(f'{h_board.name} : {h_hit} --- computer: {c_hit} ' )
-    print(' '*35)
-    print('*'*35)
+        n=input('pree any key to continue or n to quit')
+        if n=='n':
+            break
+
 
     
 def new_game():
