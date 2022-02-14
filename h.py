@@ -49,7 +49,7 @@ def random_point(size):
 
 def valid_coordination(row,col,board): 
     try:
-        if not( (row in range(5) ) or (col in range(5) ) ) :
+        if not( (int(row) in range(5) ) and (int(col) in range(5) ) ) :
             raise ValueError(
                 f"the position you entered is out of range!"
             )
@@ -84,14 +84,15 @@ def make_guess(board):
         h_row=input('please enter the row\n')
         h_col=input ('please enter the column\n')
         if valid_coordination(h_row,h_col,board):
-            return board # i have to make sure that whhich one i have to put here the class or coordination. 
-                
+            #return board # i have to make sure that whhich one i have to put here the class or coordination. 
+            board.guesses=[h_row,h_col]
+
     else :
         c_row=random_point(5)
         c_col=random_point(5)
-        if valid_coordination(c_row, c_col, board):
+        if valid_coordination(c_row , c_col , board):
             board.guesses=[c_row,c_col]
-            return board  # i have to make sure that whhich one i have to put here the class or coordination. 
+            #return board  # i have to make sure that whhich one i have to put here the class or coordination. 
         
  
  
@@ -105,7 +106,11 @@ def play_game(c_board,h_board):
     h_board.print()
 
     while True:
-        make_guess(c_board)
+        if make_guess(c_board)=='Hit':
+            print('Computer got one p2oint')
+        elif make_guess(h_board)=='Hit':
+            print("you got one point")
+            break
 
 
 
