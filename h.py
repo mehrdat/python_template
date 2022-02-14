@@ -110,6 +110,7 @@ def play_game(c_board,h_board):
         print('*'*15)
         print(h_board.name + "'s board : ")
         h_board.print()
+        
         h_row,h_col=make_guess(h_board)
         c_row,c_col=make_guess(c_board)
         print(' '*35)
