@@ -81,23 +81,27 @@ def populate_board(board):
 def make_guess(board):
        
     if board.player_type=='player':
-        h_row=input('please enter the row\n')
-        h_col=input ('please enter the column\n')
+        h_row=int(input('please enter the row\n'))
+        h_col=int(input ('please enter the column\n'))
         if valid_coordination(h_row,h_col,board):
-            #return board # i have to make sure that whhich one i have to put here the class or coordination. 
             board.guesses=[h_row,h_col]
-
+            #return board.guess(h_row,h_col) # i have to make sure that whhich one i have to put here the class or coordination. 
+            return h_row,h_col
+            
     else :
         c_row=random_point(5)
         c_col=random_point(5)
         if valid_coordination(c_row , c_col , board):
             board.guesses=[c_row,c_col]
-            #return board  # i have to make sure that whhich one i have to put here the class or coordination. 
+            #return board.guess(c_row,c_col)  # i have to make sure that whhich one i have to put here the class or coordination. 
+            return c_row,c_col
         
  
  
 def play_game(c_board,h_board): 
     
+    h_hit=0
+    c_hit=0
     print('*'*15)
     print(c_board.name + "'s board : ")
     c_board.print()
@@ -105,18 +109,32 @@ def play_game(c_board,h_board):
     print(h_board.name + "'s board : ")
     h_board.print()
 
-    while True:
-        if make_guess(c_board)=='Hit':
-            print('Computer got one p2oint')
-        elif make_guess(h_board)=='Hit':
-            print("you got one point")
-            break
-
-
-
+    h_row,h_col=make_guess(h_board)
+    c_row,c_col=make_guess(c_board)
+    print(' '*35)
+    print('*'*35)
+    print(f'player guessed {(h_row,h_col)}')
     
 
- 
+    if h_board.guess(h_row, h_col)=='Hit':
+        print(f'you have got a Hit !')
+        h_hit += 1
+    else:
+        print('You missed this time !')
+        print('*'*35)
+    print(f'computer guessed {(c_row,c_col)}')
+    if c_board.guess(c_row, c_col)=='Hit':
+        print(f'computer has got a Hit !')
+        c_hit += 1
+    else:
+        print('computer missed this time !')
+    print(' '*35)
+    print('after this round the scores are :')
+    print(f'{h_board.name} : {h_hit} --- computer: {c_hit} ' )
+    print(' '*35)
+    print('*'*35)
+
+    
 def new_game():
     size=5 
     ships_num=4 
@@ -137,8 +155,5 @@ def new_game():
         populate_board(player_computer_board)
     
     play_game(player_computer_board, player_one_board)
-
-
-
 
 new_game()
