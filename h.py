@@ -49,19 +49,19 @@ def random_point(size):
 
 def valid_coordination(row,col,board): 
     try:
-        if (row in range(5)) or (col in range(5)) :
+        if not( (row in range(5) ) or (col in range(5) ) ) :
             raise ValueError(
                 f"the position you entered is out of range!"
             )
-        elif (x,y) in board.ships:
+        elif (row,col) in board.ships:
             raise ValueError(
                 f"You entered this location before"
             )
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
-        return True
+        return False
 
-    return False
+    return True
  
 
 
@@ -72,7 +72,7 @@ def populate_board(board):
             if (c_row,c_col ) not in board.ships:
                 if board.player_type=='player':
                     board.board[c_row][c_col]='@'
-                    board.add_ship(c_row,c_col)
+                    board.add_ship(c_row,c_col,'player')
                 return board  # i have to make sure that whhich one i have to put here the class or coordination. 
                 break
 
@@ -80,21 +80,19 @@ def populate_board(board):
 
 def make_guess(board):
        
-    if board.type=='player':
-        while True:
-            h_row=input('please enter the row\n')
-            h_col=input ('please enter the column\n')
-            if valid_coordination(h_row,h_col,board):
-                return board # i have to make sure that whhich one i have to put here the class or coordination. 
-                break
+    if board.player_type=='player':
+        h_row=input('please enter the row\n')
+        h_col=input ('please enter the column\n')
+        if valid_coordination(h_row,h_col,board):
+            return board # i have to make sure that whhich one i have to put here the class or coordination. 
+                
     else :
-        while True:
-            c_row=random_point(5)
-            c_col=random_point(5)
-            if valid_coordination(c_row, c_col, borad):
-                board.add_ship(c_row,c_col)
-                return board  # i have to make sure that whhich one i have to put here the class or coordination. 
-                break
+        c_row=random_point(5)
+        c_col=random_point(5)
+        if valid_coordination(c_row, c_col, board):
+            board.guesses=[c_row,c_col]
+            return board  # i have to make sure that whhich one i have to put here the class or coordination. 
+        
  
  
 def play_game(c_board,h_board): 
@@ -105,6 +103,11 @@ def play_game(c_board,h_board):
     print('*'*15)
     print(h_board.name + "'s board : ")
     h_board.print()
+
+    while True:
+        make_guess(c_board)
+
+
 
     
 
